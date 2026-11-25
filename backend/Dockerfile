@@ -1,8 +1,12 @@
 FROM maven:3.9.9-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY pom.xml .
+COPY pom.xml maven-mirror-settings.xml ./
 COPY src ./src
-RUN mvn -B -ntp clean package -DskipTests
+# Retry the normal Maven Central build; if Render's network to it fails, fall back to Google's Central mirror.
+ENV MVN_OPTS="-B -ntp -DskipTests -Dmaven.wagon.http.retryHandler.count=5 -Dmaven.wagon.httpconnectionManager.ttlSeconds=30"
+RUN mvn $MVN_OPTS clean package \
+ || (echo ">>> Retrying via mirror" && mvn -s maven-mirror-settings.xml $MVN_OPTS clean package) \
+ || (echo ">>> Retrying via mirror (2)" && mvn -s maven-mirror-settings.xml $MVN_OPTS clean package)
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app
