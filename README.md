@@ -2,9 +2,9 @@
 
 A full-stack web application for managing hospital patient admissions: register patients, search and filter records, edit details, discharge patients and track live admission statistics.
 
-**Live application:** `LIVE_FRONTEND_URL`
-**Backend API:** `LIVE_BACKEND_URL/api` · Health: `LIVE_BACKEND_URL/api/health`
-**GitHub repository:** `GITHUB_REPO_URL`
+**Live application:** https://dscribe-patients.vercel.app
+**Backend API:** https://patient-management-j7ln.onrender.com/api · Health: https://patient-management-j7ln.onrender.com/api/health
+**GitHub repository:** https://github.com/harshraj677/Patient-Management
 
 ---
 
@@ -169,7 +169,7 @@ npm run dev                     # http://localhost:5173
 
 | Variable       | Example                                      |
 |----------------|----------------------------------------------|
-| `VITE_API_URL` | `https://your-backend.onrender.com/api`      |
+| `VITE_API_URL` | `https://your-backend.onrender.com` (`/api` is added automatically) |
 
 Secrets are never committed: `.env` files are gitignored.
 
@@ -241,7 +241,7 @@ Render has no native Java runtime, so it builds the backend from the root `Docke
 
 ### Frontend: Vercel
 1. Import the repository on Vercel and set **Root Directory** to `frontend` (the Vite preset is detected automatically).
-2. Add the environment variable `VITE_API_URL=https://<your-backend>.onrender.com/api`.
+2. Add the environment variable `VITE_API_URL=https://<your-backend>.onrender.com`.
 3. Deploy. `vercel.json` rewrites all routes to `index.html` so React Router deep links work.
 
 ## Testing Performed
