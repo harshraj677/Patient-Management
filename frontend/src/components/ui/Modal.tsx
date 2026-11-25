@@ -19,13 +19,14 @@ export function Modal({ open, onOpenChange, title, description, children, classN
         <Dialog.Overlay className="fixed inset-0 z-50 bg-slate-900/40" />
         <Dialog.Content
           className={cn(
-            'fixed left-1/2 top-1/2 z-50 w-[calc(100%-1.5rem)] max-w-lg -translate-x-1/2 -translate-y-1/2',
-            'max-h-[calc(100dvh-2rem)] overflow-y-auto rounded-xl border border-slate-200 bg-white p-5 shadow-xl sm:p-6',
+            // Phones: bottom sheet. sm and up: centered modal.
+            'fixed inset-x-0 bottom-0 z-50 max-h-[92dvh] w-full overflow-y-auto overscroll-contain rounded-t-2xl border border-slate-200 bg-white p-4 pb-[max(1rem,env(safe-area-inset-bottom))] shadow-xl',
+            'sm:inset-x-auto sm:bottom-auto sm:left-1/2 sm:top-1/2 sm:max-h-[calc(100dvh-2rem)] sm:w-[calc(100%-2rem)] sm:max-w-lg sm:-translate-x-1/2 sm:-translate-y-1/2 sm:rounded-xl sm:p-6',
             className,
           )}
         >
-          <div className="mb-5 flex items-start justify-between gap-4">
-            <div>
+          <div className="mb-4 flex items-start justify-between gap-3 sm:mb-5">
+            <div className="min-w-0">
               <Dialog.Title className="text-lg font-semibold text-slate-900">{title}</Dialog.Title>
               {description ? (
                 <Dialog.Description className="mt-1 text-sm text-slate-500">{description}</Dialog.Description>
@@ -34,7 +35,7 @@ export function Modal({ open, onOpenChange, title, description, children, classN
               )}
             </div>
             <Dialog.Close
-              className="rounded-md p-1 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
+              className="-mr-1.5 -mt-1.5 shrink-0 rounded-md p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-600"
               aria-label="Close"
             >
               <X className="h-5 w-5" />

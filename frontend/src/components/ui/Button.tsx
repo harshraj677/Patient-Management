@@ -12,9 +12,9 @@ const variants: Record<Variant, string> = {
 }
 
 const sizes: Record<Size, string> = {
-  sm: 'h-9 px-3 text-sm',
-  md: 'h-10 px-4 text-sm',
-  icon: 'h-9 w-9',
+  sm: 'h-10 px-3 text-sm sm:h-9',
+  md: 'h-11 px-4 text-sm sm:h-10',
+  icon: 'h-10 w-10 sm:h-9 sm:w-9',
 }
 
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {

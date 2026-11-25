@@ -48,7 +48,7 @@ export default function Dashboard() {
     <div>
       <Header title="Welcome back" description={`Here's today's admissions overview · ${today}`} onAdd={() => setFormOpen(true)} />
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+      <div className="grid grid-cols-1 gap-3 min-[360px]:grid-cols-2 sm:gap-4 xl:grid-cols-4">
         <StatCard label="Total Patients" value={stats?.totalPatients} icon={Users} tone="teal" />
         <StatCard label="Currently Admitted" value={stats?.admitted} icon={BedDouble} tone="emerald" />
         <StatCard label="Discharged" value={stats?.discharged} icon={LogOut} tone="slate" />
@@ -57,12 +57,12 @@ export default function Dashboard() {
 
       <div className="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
         <section className="rounded-xl border border-slate-200 bg-white shadow-sm lg:col-span-2">
-          <div className="flex items-center justify-between border-b border-slate-200 px-5 py-4">
+          <div className="flex items-center justify-between gap-3 border-b border-slate-200 px-4 py-4 sm:px-5">
             <div>
               <h2 className="font-semibold text-slate-900">Recent Patients</h2>
               <p className="text-xs text-slate-500">The 5 most recently added records</p>
             </div>
-            <Link to="/patients" className="inline-flex items-center gap-1 text-sm font-medium text-teal-700 hover:text-teal-800">
+            <Link to="/patients" className="inline-flex shrink-0 items-center gap-1 py-2 text-sm font-medium text-teal-700 hover:text-teal-800">
               View all <ArrowRight className="h-4 w-4" />
             </Link>
           </div>
@@ -75,7 +75,7 @@ export default function Dashboard() {
           ) : (
             <ul className="divide-y divide-slate-100">
               {recent.map((p) => (
-                <li key={p.id} className="flex flex-col gap-2 px-5 py-3 sm:flex-row sm:items-center sm:justify-between">
+                <li key={p.id} className="flex flex-col gap-2 px-4 py-3 sm:flex-row sm:items-center sm:justify-between sm:px-5">
                   <PatientCell patient={p} />
                   <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-slate-500 sm:justify-end">
                     <span>{p.ward}</span>

@@ -9,15 +9,15 @@ interface FilterBarProps {
 }
 
 const selectClass =
-  'h-10 w-full rounded-lg border border-slate-200 bg-white px-3 text-sm text-slate-700 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30'
+  'h-11 w-full min-w-0 text-base sm:h-10 sm:text-sm rounded-lg border border-slate-200 bg-white px-3 text-slate-700 focus:border-teal-500 focus:outline-none focus:ring-2 focus:ring-teal-500/30'
 
 export function FilterBar({ filters, onChange }: FilterBarProps) {
   const set = (key: keyof PatientFilters, value: string) => onChange({ ...filters, [key]: value })
   const hasFilters = Object.values(filters).some((v) => v)
 
   return (
-    <div className="grid grid-cols-1 gap-3 border-b border-slate-200 p-4 sm:grid-cols-2 lg:grid-cols-6">
-      <div className="relative sm:col-span-2 lg:col-span-2">
+    <div className="grid grid-cols-1 gap-3 border-b border-slate-200 p-3 sm:grid-cols-2 sm:p-4 lg:grid-cols-3 min-[1400px]:grid-cols-6">
+      <div className="relative sm:col-span-2 lg:-order-2 lg:col-span-2 min-[1400px]:order-none min-[1400px]:col-span-2">
         <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
         <input
           value={filters.search ?? ''}
@@ -30,14 +30,14 @@ export function FilterBar({ filters, onChange }: FilterBarProps) {
       <FilterSelect label="Ward" value={filters.ward} options={WARDS} onChange={(v) => set('ward', v)} />
       <FilterSelect label="Department" value={filters.department} options={DEPARTMENTS} onChange={(v) => set('department', v)} />
       <FilterSelect label="Doctor" value={filters.doctor} options={DOCTORS} onChange={(v) => set('doctor', v)} />
-      <div className="flex gap-2">
-        <div className="flex-1">
+      <div className="flex gap-2 lg:-order-1 min-[1400px]:order-none">
+        <div className="min-w-0 flex-1">
           <FilterSelect label="Status" value={filters.status} options={STATUSES} onChange={(v) => set('status', v)} />
         </div>
         <Button
           variant="ghost"
           size="icon"
-          className="h-10 w-10 shrink-0"
+          className="h-11 w-11 shrink-0 sm:h-10 sm:w-10"
           onClick={() => onChange({})}
           disabled={!hasFilters}
           aria-label="Clear filters"

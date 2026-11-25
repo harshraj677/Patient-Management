@@ -22,10 +22,13 @@ export function Sidebar({ open, onClose }: SidebarProps) {
         aria-hidden="true"
       />
       <aside
+        data-sidebar-closed={!open}
+        aria-label="Main navigation"
         className={cn(
-          'fixed inset-y-0 left-0 z-40 flex w-64 flex-col border-r border-slate-200 bg-white transition-transform duration-200',
-          'lg:static lg:translate-x-0',
-          open ? 'translate-x-0' : '-translate-x-full',
+          'fixed inset-y-0 left-0 z-40 flex w-[min(16rem,85vw)] flex-col border-r border-slate-200 bg-white shadow-xl transition-[transform,visibility] duration-200 lg:w-64 lg:shadow-none',
+          'lg:visible lg:static lg:translate-x-0',
+          // When closed on small screens the drawer is also removed from the tab order
+          open ? 'visible translate-x-0' : 'invisible -translate-x-full',
         )}
       >
         <div className="flex h-16 items-center justify-between border-b border-slate-100 px-5">
@@ -39,7 +42,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
             </div>
           </div>
           <button
-            className="rounded-md p-1 text-slate-400 hover:bg-slate-100 lg:hidden"
+            className="rounded-md p-2 text-slate-400 hover:bg-slate-100 lg:hidden"
             onClick={onClose}
             aria-label="Close menu"
           >
@@ -56,7 +59,7 @@ export function Sidebar({ open, onClose }: SidebarProps) {
               onClick={onClose}
               className={({ isActive }) =>
                 cn(
-                  'flex items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
+                  'flex min-h-11 items-center gap-3 rounded-lg px-3 py-2.5 text-sm font-medium transition-colors',
                   isActive ? 'bg-teal-50 text-teal-700' : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900',
                 )
               }

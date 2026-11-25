@@ -129,7 +129,7 @@ export function PatientForm({ patient, submitting, serverErrors, onSubmit, onCan
         </Field>
       </div>
 
-      <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end">
+      <div className="flex flex-col-reverse gap-2 pt-2 sm:flex-row sm:justify-end [&>button]:h-11 sm:[&>button]:h-10">
         <Button variant="secondary" onClick={onCancel} disabled={submitting}>
           Cancel
         </Button>
@@ -144,7 +144,7 @@ export function PatientForm({ patient, submitting, serverErrors, onSubmit, onCan
 
 function inputClass(error?: unknown) {
   return cn(
-    'h-10 w-full rounded-lg border bg-white px-3 text-sm text-slate-800 placeholder:text-slate-400',
+    'h-11 w-full min-w-0 rounded-lg border bg-white px-3 text-base text-slate-800 placeholder:text-slate-400 sm:h-10 sm:text-sm',
     'focus:outline-none focus:ring-2 focus:ring-teal-500/30',
     error ? 'border-red-400 focus:border-red-500' : 'border-slate-200 focus:border-teal-500',
   )

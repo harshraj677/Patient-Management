@@ -17,17 +17,17 @@ const tones = {
 
 export function StatCard({ label, value, icon: Icon, tone }: StatCardProps) {
   return (
-    <div className="rounded-xl border border-slate-200 bg-white p-5 shadow-sm">
-      <div className="flex items-center justify-between">
-        <p className="text-sm font-medium text-slate-500">{label}</p>
-        <div className={cn('flex h-10 w-10 items-center justify-center rounded-lg', tones[tone])}>
+    <div className="min-w-0 rounded-xl border border-slate-200 bg-white p-4 shadow-sm sm:p-5">
+      <div className="flex items-center justify-between gap-2">
+        <p className="min-w-0 text-xs font-medium text-slate-500 sm:text-sm">{label}</p>
+        <div className={cn('flex h-9 w-9 shrink-0 items-center justify-center rounded-lg sm:h-10 sm:w-10', tones[tone])}>
           <Icon className="h-5 w-5" />
         </div>
       </div>
       {value === undefined ? (
         <div className="mt-3 h-8 w-16 animate-pulse rounded bg-slate-100" />
       ) : (
-        <p className="mt-3 text-3xl font-semibold text-slate-900">{value}</p>
+        <p className="mt-2 text-2xl font-semibold text-slate-900 sm:mt-3 sm:text-3xl">{value}</p>
       )}
     </div>
   )
