@@ -1,9 +1,18 @@
 import axios, { AxiosError } from 'axios'
 import type { ApiErrorBody } from '../types/patient'
 
-/** Central Axios instance. VITE_API_URL points at the backend, e.g. https://my-api.onrender.com/api */
+/**
+ * VITE_API_URL is the backend address, e.g. https://my-api.onrender.com
+ * ("/api" is appended automatically if missing, so both forms work).
+ */
+export function buildApiBaseUrl(raw: string | undefined): string {
+  const url = (raw?.trim() || 'http://localhost:8080').replace(/\/+$/, '')
+  return url.endsWith('/api') ? url : `${url}/api`
+}
+
+/** Central Axios instance used by every service. */
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? 'http://localhost:8080/api',
+  baseURL: buildApiBaseUrl(import.meta.env.VITE_API_URL),
   headers: { 'Content-Type': 'application/json' },
   // Free-tier backends can take up to a minute to wake up after being idle.
   timeout: 70000,
