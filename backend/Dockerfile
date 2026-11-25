@@ -1,12 +1,10 @@
-# Used when Render's Root Directory is set to "backend" (build context = this folder).
-# If Root Directory is blank, Render uses the Dockerfile at the repository root instead.
-FROM eclipse-temurin:21-jdk AS build
+# Used when Render's Root Directory is "backend". (With a blank Root Directory, the root Dockerfile is used.)
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY .mvn .mvn
-COPY mvnw pom.xml ./
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw && ./mvnw -q -B dependency:go-offline
+COPY pom.xml ./
+RUN mvn -q -B dependency:go-offline
 COPY src src
-RUN ./mvnw -q -B -DskipTests package
+RUN mvn -q -B -DskipTests package
 
 FROM eclipse-temurin:21-jre
 WORKDIR /app

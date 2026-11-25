@@ -1,19 +1,15 @@
-# Render build recipe for the Spring Boot backend (works with Render's Root Directory left blank).
-# Render has no native Java runtime, so Java apps are built from a Dockerfile.
-
-# Stage 1: build the jar with the Maven wrapper
-FROM eclipse-temurin:21-jdk AS build
+# Render build recipe (repo root). Uses the official Maven + JDK 21 image, so no Maven download is needed.
+FROM maven:3.9-eclipse-temurin-21 AS build
 WORKDIR /app
-COPY backend/.mvn .mvn
-COPY backend/mvnw backend/pom.xml ./
-RUN sed -i 's/\r$//' mvnw && chmod +x mvnw && ./mvnw -q -B dependency:go-offline
+COPY backend/pom.xml ./
+RUN mvn -q -B dependency:go-offline
 COPY backend/src src
-RUN ./mvnw -q -B -DskipTests package
+RUN mvn -q -B -DskipTests package
 
-# Stage 2: run the jar on a small JRE image
 FROM eclipse-temurin:21-jre
 WORKDIR /app
 COPY --from=build /app/target/*.jar app.jar
 ENV JAVA_OPTS="-Xmx384m -XX:+UseSerialGC"
 EXPOSE 8080
+# application.properties reads server.port=${PORT:8080}; Render injects PORT.
 CMD ["sh", "-c", "java $JAVA_OPTS -jar app.jar"]
