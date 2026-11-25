@@ -81,7 +81,6 @@ A `@RestControllerAdvice` turns every exception into one consistent JSON error s
 │   ├── src/main/resources/
 │   │   ├── application.properties    All config via environment variables
 │   │   └── schema.sql                Creates the patient-number sequence
-│   ├── Dockerfile                    Build recipe used by Render
 │   └── pom.xml
 ├── frontend/                         React app
 │   └── src/
@@ -92,6 +91,7 @@ A `@RestControllerAdvice` turns every exception into one consistent JSON error s
 │       ├── types/                    patient.ts
 │       └── lib/                      dropdown options, helpers
 ├── docs/screenshots/
+├── Dockerfile                        Backend build recipe used by Render
 └── render.yaml                       Render blueprint
 ```
 
@@ -228,10 +228,10 @@ The frontend (Zod) and the backend (Bean Validation plus service checks) enforce
 Create the project and copy the connection details (see [Database Configuration](#database-configuration)).
 
 ### Backend: Render
-Render has no native Java runtime, so it builds the app from `backend/Dockerfile`, a two-stage Maven build and JRE image.
+Render has no native Java runtime, so it builds the backend from the root `Dockerfile`, a two-stage Maven build and JRE image.
 
 1. On Render, choose **New → Web Service** and connect this GitHub repository.
-2. **Root Directory:** `backend` · **Language:** Docker · **Instance type:** Free
+2. **Language:** Docker · **Root Directory:** leave blank · **Region:** Ohio (same as Neon) · **Instance type:** Free
 3. Add the environment variables `DATABASE_URL`, `DATABASE_USERNAME`, `DATABASE_PASSWORD` and `CORS_ALLOWED_ORIGINS=https://<your-app>.vercel.app,http://localhost:5173`.
 4. **Health Check Path:** `/api/health`, then deploy.
 

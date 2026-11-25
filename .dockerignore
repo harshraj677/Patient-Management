@@ -1,0 +1,9 @@
+frontend
+docs
+**/node_modules
+backend/target
+**/.env
+**/*.env
+.git
+.idea
+.vscode
